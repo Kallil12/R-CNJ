@@ -1,3 +1,3 @@
-# R-CNJ
+# R, SQL e outros
 
-Anotações e atividades propostas durante o curso de R organizado pelo CNJ e ministrado por professores da UFPR.
+Anotações e atividades propostas durante diferentes cursos.
