@@ -30,3 +30,25 @@ FROM movies
 WHERE movie_lang = 'Chinese';
 
 -- Challenge 2
+-- how many directors are there per nationality?
+
+SELECT nationality, COUNT(nationality) AS total_nationality
+FROM directors
+GROUP BY nationality
+ORDER BY nationality;
+
+-- what is the sum total movie length for each age certificate and movie language
+-- combination
+
+SELECT movie_lang, age_certificate, SUM(movie_length) AS total_length
+FROM movies
+GROUP BY movie_lang, age_certificate
+ORDER BY movie_lang, age_certificate;
+
+-- return the movie languages which have a sum total movie length of over 500
+-- minutes
+
+SELECT movie_lang, SUM(movie_length) AS total_length
+FROM movies
+GROUP BY movie_lang
+HAVING SUM(movie_length) > 500;
