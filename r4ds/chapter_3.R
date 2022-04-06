@@ -33,3 +33,5 @@ ggplot(data = mpg) +
   geom_point(mapping = aes(x = drv, y = class))
 
 print("both axis are formed by categorical data, so it is not very useful to compare them because they overlap each other")
+
+

@@ -1,0 +1,13 @@
+1 - the relationship between the schema "owners" and "pets" is 1 to many. Because
+one owner can have many pets, but a pet can have only one owner.
+
+2 - the relationship between adresses and onwers should be one to one. Each owner
+would, ideally, have a house which is a unique place. However, if a family lives
+together and each member of the family have a pet, the relationship could be
+one to many. With many owners living in the same address.
+
+3 - a Spotify relationship:
+
+  - users - songs (many to many)
+  - users - playlists (one to many)
+  - songs - playlists (many to many)
