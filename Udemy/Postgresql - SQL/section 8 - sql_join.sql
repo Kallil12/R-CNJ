@@ -24,3 +24,20 @@ FROM movies
 INNER JOIN movie_revenues ON movies.movie_id = movie_revenues.movie_id
 WHERE (domestic_takings IS NULL) OR (international_takings IS NULL)
 ORDER BY movie_name;
+
+-- Challenge 2
+-- Use a left join to select the first and last names of all British directors
+-- and the names and age certificates of the movies that they directed.
+
+SELECT first_name, last_name, movie_name, age_certificate
+FROM directors
+LEFT JOIN movies ON directors.director_id = movies.director_id
+WHERE nationality = 'British';
+
+-- Count the number of movies that each director has directed.
+
+SELECT d.first_name, d.last_name,  COUNT(movie_name)
+FROM directors d
+INNER JOIN movies mo ON d.director_id = mo.director_id
+GROUP BY d.first_name, d.last_name
+ORDER BY COUNT(movie_name) DESC;
