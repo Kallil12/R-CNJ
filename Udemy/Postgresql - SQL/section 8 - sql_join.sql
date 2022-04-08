@@ -78,3 +78,29 @@ JOIN movie_revenues mr ON mr.movie_id = mo.movie_id
 WHERE (mr.domestic_takings IS NOT NULL) AND (mr.international_takings IS NOT NULL)
 ORDER BY (mr.domestic_takings + mr.international_takings) DESC
 LIMIT 1;
+
+-- Challenge 4
+-- Select the first names, last names and dates of birth from directors and
+-- actors. Order the results by the date of birth.
+
+SELECT d.first_name, d.last_name, d.date_of_birth
+FROM directors d
+
+UNION
+
+SELECT a.first_name, a.last_name, a.date_of_birth
+FROM actors a
+ORDER BY date_of_birth
+
+
+-- Select the first and last names of all directors and actors born in the
+-- 1960s. Order the results by last name.
+
+SELECT d.first_name, d.last_name, d.date_of_birth
+FROM directors d
+
+UNION ALL
+
+SELECT a.first_name, a.last_name, a.date_of_birth
+FROM actors a
+ORDER BY date_of_birth
