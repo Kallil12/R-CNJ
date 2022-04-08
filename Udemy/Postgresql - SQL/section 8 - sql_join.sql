@@ -58,7 +58,17 @@ WHERE (d.first_name = 'Wes') AND (d.last_name = 'Anderson');
 
 -- which director has the highest total domestic takings.
 
+SELECT (d.first_name ||' '|| d.last_name) AS director_name,
+	    SUM(mr.domestic_takings) AS total_domestic_takings
+FROM directors d
+JOIN movies mo ON d.director_id = mo.director_id
+JOIN movie_revenues mr ON mr.movie_id = mo.movie_id
+WHERE (mr.domestic_takings IS NOT NULL)
+GROUP BY d.first_name, d.last_name
+ORDER BY total_domestic_takings DESC
+LIMIT 1;
 
+-- this one shows total takings:
 SELECT (d.first_name ||' '|| d.last_name) AS director_name,
 		mo.movie_name,
 	   (mr.domestic_takings + mr.international_takings) AS total_takings
