@@ -41,3 +41,30 @@ FROM directors d
 INNER JOIN movies mo ON d.director_id = mo.director_id
 GROUP BY d.first_name, d.last_name
 ORDER BY COUNT(movie_name) DESC;
+
+-- Challenge 3
+-- select the first and last names of all the actors who have starred in movies
+-- directed by Wes Anderson
+
+
+SELECT (ac.first_name ||' '|| ac.last_name) AS actor_name,
+	   (d.first_name ||' '|| d.last_name) AS director_name
+FROM actors ac
+JOIN movies_actors ma ON ma.actor_id = ac.actor_id
+JOIN movies mo ON mo.movie_id = ma.movie_id
+JOIN directors d ON d.director_id = mo.director_id
+WHERE (d.first_name = 'Wes') AND (d.last_name = 'Anderson');
+
+
+-- which director has the highest total domestic takings.
+
+
+SELECT (d.first_name ||' '|| d.last_name) AS director_name,
+		mo.movie_name,
+	   (mr.domestic_takings + mr.international_takings) AS total_takings
+FROM directors d
+JOIN movies mo ON d.director_id = mo.director_id
+JOIN movie_revenues mr ON mr.movie_id = mo.movie_id
+WHERE (mr.domestic_takings IS NOT NULL) AND (mr.international_takings IS NOT NULL)
+ORDER BY (mr.domestic_takings + mr.international_takings) DESC
+LIMIT 1;
