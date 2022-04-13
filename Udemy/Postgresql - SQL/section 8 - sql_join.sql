@@ -46,7 +46,6 @@ ORDER BY COUNT(movie_name) DESC;
 -- select the first and last names of all the actors who have starred in movies
 -- directed by Wes Anderson
 
-
 SELECT (ac.first_name ||' '|| ac.last_name) AS actor_name,
 	   (d.first_name ||' '|| d.last_name) AS director_name
 FROM actors ac
@@ -54,7 +53,6 @@ JOIN movies_actors ma ON ma.actor_id = ac.actor_id
 JOIN movies mo ON mo.movie_id = ma.movie_id
 JOIN directors d ON d.director_id = mo.director_id
 WHERE (d.first_name = 'Wes') AND (d.last_name = 'Anderson');
-
 
 -- which director has the highest total domestic takings.
 
@@ -104,3 +102,29 @@ UNION ALL
 SELECT a.first_name, a.last_name, a.date_of_birth
 FROM actors a
 ORDER BY date_of_birth
+
+-- Challenge 5
+-- Intersect the first name, last name and date of birth columns in the
+-- directors and actor tables.
+
+SELECT first_name, last_name, date_of_birth
+FROM directors
+
+INTERSECT
+
+SELECT first_name, last_name, date_of_birth
+FROM directors
+ORDER BY first_name;
+
+-- Retrieve the first name of male actors unless they have the same first name
+-- as any British directors.
+
+SELECT first_name
+FROM actors
+
+EXCEPT
+
+SELECT first_name
+FROM directors
+WHERE nationality = 'British' AND first_name IS NOT NULL
+ORDER BY first_name;
