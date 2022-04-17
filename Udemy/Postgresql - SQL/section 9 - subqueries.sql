@@ -27,4 +27,24 @@ FROM movies mo
 JOIN movie_revenues movre ON movre.movie_id = mo.movie_id
 WHERE movre.domestic_takings > (SELECT AVG(domestic_takings)
                       			FROM movie_revenues
-							    WHERE domestic_takings IS NOT NULL);
+							    					WHERE domestic_takings IS NOT NULL);
+
+-- Challenge 2
+-- Select the first name, last name and date of birth for the oldest actors of
+-- each gender
+
+SELECT act1.first_name, act1.last_name, act1.date_of_birth
+FROM actors act1
+WHERE act1.date_of_birth = (SELECT MIN(act2.date_of_birth)
+												    FROM actors act2
+												    WHERE act1.gender = act2.gender);
+
+-- Select the movie name, movie length and age certificate for movies with an
+-- above average length for their age certificate
+
+SELECT mo1.movie_name, mo1.movie_length, mo1.age_certificate
+FROM movies mo1
+WHERE mo1.movie_length > (SELECT AVG(mo2.movie_length)
+						  						FROM movies mo2
+						  						WHERE mo1.age_certificate = mo2.age_certificate)
+ORDER BY mo1.age_certificate;
