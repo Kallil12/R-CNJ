@@ -25,3 +25,23 @@ FROM directors d;
 
 SELECT CONCAT(d.first_name, ' ', d.last_name, ' - ',LEFT(d.first_name,1),'.', LEFT(d.last_name,1)) AS "initials"
 FROM directors d;
+
+-- Challenge 2
+-- use the substring function to retrieve the first 6 characters of each movie
+-- name and the year they released
+
+SELECT SUBSTRING(movie_name, 0, 6), SUBSTRING(release_date::TEXT, 0, 5)
+FROM movies;
+
+-- retrieve the first name initial and last name of every actor born in May
+
+SELECT CONCAT(SUBSTRING(first_name,1,1), '.' , ' ', last_name) AS name
+FROM actors
+WHERE SPLIT_PART(date_of_birth::TEXT, '-', 2) = '05'
+
+-- replace the movie language for all English language movies, with age
+-- certificate rating 18 to 'Eng'
+
+SELECT REPLACE(movie_lang, 'English', 'Eng')
+FROM movies
+WHERE age_certificate = '18';
