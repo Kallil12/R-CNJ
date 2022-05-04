@@ -36,3 +36,45 @@ fin_data[complete.cases(fin_data),]
 fin_data <- read_csv(file.choose(), na = c(""))
 head(fin_data,20)
 
+fin_data[fin_data$Revenue == 9746272,]
+
+# using the "which" operator
+
+which(fin_data$Revenue == 9746272)
+fin_data[which(fin_data$Revenue == 9746272),]
+
+fin_data[which(fin_data$Employees == 45),]
+
+# filtering NAs - using is.na()
+
+a <- c(1,24,53,NA,76,55,NA)
+is.na(a)
+
+is.na(fin_data$Expenses)
+fin_data[is.na(fin_data$Expenses),]
+
+# removing records with missing data
+fin_backup <- fin_data
+
+fin_data[!complete.cases(fin_data),]
+fin_data[is.na(fin_data$Industry),]
+
+fin_data <- fin_data[!is.na(fin_data$Industry),]
+
+# reseting dataframe index
+
+rownames(fin_data) <- 1:nrow(fin_data)
+
+# replacing data - factual analysis method
+
+fin_data[is.na(fin_data$State) & fin_data$City == "New York","State"] <- "NY"
+fin_data[c(11,377),]
+
+fin_data[is.na(fin_data$State) & fin_data$City == "San Francisco","State"] <- "SF"
+fin_data[c(82,265),"State"] <- "CA"
+fin_data[c(82,265),]
+
+fin_data[!complete.cases(fin_data),]
+
+
+# median imputation method part I
