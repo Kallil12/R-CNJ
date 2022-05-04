@@ -78,3 +78,25 @@ fin_data[!complete.cases(fin_data),]
 
 
 # median imputation method part I
+
+median(fin_data$Employees, na.rm = TRUE)
+mean(fin_data[fin_data$Industry == "Retail", "Employees"], na.rm = TRUE)
+
+fin_data %>%
+  filter(Industry == "Retail") %>%
+  drop_na() %>%
+  summarise(media = mean("Employees"))
+
+mean(fin_data$Employees, na.rm = TRUE)
+fin_retail <- fin_data[fin_data$Industry == "Retail",]
+mean(fin_retail$Employees, na.rm = TRUE)
+med_empl_retail <- median(fin_retail$Employees, na.rm = TRUE)
+
+fin_data[is.na(fin_data$Employees) & fin_data$Industry == "Retail", "Employees"] <- med_empl_retail
+
+fin_data[fin_data$Industry == "Retail",]
+fin_financial <- fin_data[fin_data$Industry == "Financial Services",]
+med_financial <- median(fin_financial$Employees, na.rm = TRUE)
+
+fin_data[is.na(fin_data$Employees) & fin_data$Industry == "Financial Services", "Employees"] <- med_financial
+
