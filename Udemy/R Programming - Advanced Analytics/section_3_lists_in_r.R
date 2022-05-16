@@ -40,3 +40,62 @@ machines_under_90_flag <- length(which(RL1$Utilization < 0.90)) > 0
 
 list_rl1 <- list("RL1", machine_RL1, machines_under_90_flag)
 list_rl1
+
+names(list_rl1) <- c("Machine", "Stats", "LowThreshold")
+
+# extracting components of a list:
+# [], [[]] or $
+
+list_rl1
+
+list_rl1[1]
+
+list_rl1[[1]]
+
+list_rl1$Machine
+
+typeof(list_rl1[[2]])
+typeof(list_rl1$Stats)
+
+list_rl1$Stats[3]
+
+list_rl1[4] <- "New Information"
+
+list_rl1
+
+# add:
+# vector: all hours where utilization is inknown (NA's)
+
+list_rl1$UnkownHours <- RL1[is.na(RL1$Utilization),"PosixTime"]
+
+list_rl1[4] <- NULL
+
+# add another component
+# dataframe
+
+list_rl1$Data <- RL1
+
+# subsetting a list
+
+list_rl1$UnkownHours[1]
+
+# creating a timeseries plot
+
+p <- ggplot(data = machines)
+myplot <- p + geom_line(aes(x = PosixTime, y = Utilization,
+                  color = Machine), size = 1.2) +
+  facet_grid(Machine~.) +
+  geom_hline(yintercept = 0.90,
+             color = "Gray", 
+             size = 1.1,
+             linetype = 3)
+
+list_rl1$Plot <- myplot
+list_rl1
+
+
+
+
+
+
+
