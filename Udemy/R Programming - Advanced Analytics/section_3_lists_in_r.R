@@ -93,7 +93,7 @@ myplot <- p + geom_line(aes(x = PosixTime, y = Utilization,
 list_rl1$Plot <- myplot
 list_rl1
 
-
+summary(list_rl1)
 
 
 
