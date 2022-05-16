@@ -100,3 +100,13 @@ med_financial <- median(fin_financial$Employees, na.rm = TRUE)
 
 fin_data[is.na(fin_data$Employees) & fin_data$Industry == "Financial Services", "Employees"] <- med_financial
 
+md_growth_constr <- median(fin_data[fin_data$Industry == "Construction", "Growth"], na.rm = TRUE)
+
+
+fin_data %>%
+  filter(Industry == "Construction") %>%
+  drop_na(Revenue) %>%
+  summarise(media = mean("Revenue"))
+
+?gsub
+?sub
