@@ -26,6 +26,7 @@ div_placeholder <- function(content = "PLACEHOLDER",
 
 fluidPage(
     titlePanel("Título da aplicação"),
+    includeCSS("www/style.css"),
     sidebarLayout(
         sidebarPanel(
             width = 2,
@@ -62,10 +63,7 @@ fluidPage(
                    # Gráfico de barras.
             plotOutput("MAP"),
             plotOutput("BARPLOT"),
-            # Tabela.
-            div_placeholder("PLACEHOLRDER: TABELA",
-                            color = "#8f9fd0",
-                            height = "10em")
+            reactableOutput("TABLE")
         )
     )
 )

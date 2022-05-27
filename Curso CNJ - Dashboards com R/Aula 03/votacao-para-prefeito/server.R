@@ -30,6 +30,11 @@ shinyServer(
                      unidade_federativa = isolate(input$UF),
                      ano_eleitoral = isolate(input$ANO))
       })
+      
+      output$TABLE <- renderReactable({
+        make_table(tb_estado = FILTERED_DATA()$tb_estado,
+                   tb_count = FILTERED_DATA()$tb_count)
+      })
     }
 )
 
