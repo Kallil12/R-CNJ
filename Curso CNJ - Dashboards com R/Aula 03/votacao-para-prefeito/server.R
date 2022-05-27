@@ -35,6 +35,37 @@ shinyServer(
         make_table(tb_estado = FILTERED_DATA()$tb_estado,
                    tb_count = FILTERED_DATA()$tb_count)
       })
+      
+      output$IB_ANO <- renderValueBox({
+        valueBox(
+          value = input$ANO,
+          icon = "fa-calendar",
+          color = "primary"
+        )
+      })
+      output$IB_UF <- renderValueBox({
+        valueBox(
+          value = input$UF,
+          icon = "fa-map",
+          color = "primary"
+        )
+      })
+      output$IB_TOT <- renderValueBox({
+        valueBox(
+          value = sum(FILTERED_DATA()$tb_count$n),
+          icon = "fa-university",
+          color = "success"
+        )
+      })
+      output$IB_PERC <- renderValueBox({
+        tb_count <- FILTERED_DATA()$tb_count
+        valueBox(
+          value = sprintf("%0.1f%%", 100*max(tb_count$n)/sum(tb_count$n)),
+          caption = sprintf("de prefeituras com %s", tb_count$Partido[1]),
+          icon = "fa-trophy",
+          color = "warning"
+        )
+      })
     }
 )
 

@@ -9,6 +9,7 @@
 
 library(shiny)
 library(plotly)
+library(flexdashboard)
 
 # Função para posicionar os elementos.
 div_placeholder <- function(content = "PLACEHOLDER",
@@ -46,18 +47,10 @@ fluidPage(
         mainPanel(
             flowLayout(
                 # Caixas de informação.
-                div_placeholder("ANO SELECIONADO",
-                                color = "#f4a57e",
-                                height = "5em"),
-                div_placeholder("UF SELECIONADA",
-                                color = "#f4a57e",
-                                height = "5em"),
-                div_placeholder("TOTAL DE PREFEITURAS",
-                                color = "#f4a57e",
-                                height = "5em"),
-                div_placeholder("PERCENTUAL DE PREFEITURAS",
-                                color = "#f4a57e",
-                                height = "5em")
+                valueBoxOutput(outputId = "IB_ANO"),
+                valueBoxOutput(outputId = "IB_UF"),
+                valueBoxOutput(outputId = "IB_TOT"),
+                valueBoxOutput(outputId = "IB_PERC")
             ),
             # Mapa.
                    # Gráfico de barras.
