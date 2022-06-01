@@ -44,4 +44,26 @@ lapply(weather, rbind, NewRow = 1:12)
 #rowMeans(chicago_matrix)
 lapply(weather, rowMeans)
 
+# lapply and []
 
+lapply(weather, "[", 1,)
+weather
+
+lapply(weather, "[",,3)
+
+# adding functions
+lapply(weather, rowMeans)
+lapply(weather, function(x) x[1,])
+
+lapply(weather, function(z) z[1,]-z[2,])
+
+# sapply()
+?sapply
+lapply(weather,"[",1,7)
+sapply(weather,"[",1,7)
+
+sapply(weather,"[",1,10:12)
+sapply(weather, rowMeans)
+round(sapply(weather, rowMeans),2)
+
+sapply(weather, function(z) round((z[1,]-z[2,])/z[2,],2))
