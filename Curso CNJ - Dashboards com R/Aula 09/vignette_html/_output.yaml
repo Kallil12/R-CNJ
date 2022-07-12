@@ -1,0 +1,27 @@
+html_document:
+  highlight: haddock
+  fig_caption: yes
+  fig_align: center
+  code_folding: hide
+  toc: true
+  toc_dep: 3
+  toc_float:
+    collapsed: false
+    smooth_scroll: false
+  number_sections: true
+  css: config/style.css
+  includes:
+    in_header: ../COMMON/MathJax.html
+    before_body: config/header.html
+    after_body: config/footer.html
+  mathjax: default
+  #self_contained: false
+  #template: config/template.html
+  #template: /home/walmes/repos/rmarkdown/inst/rmd/h/default.html
+  pandoc_args: [
+      "--variable", "code_folding_button=Código",
+      "--variable", "code_folding_show=Mostrar",
+      "--variable", "code_folding_hide=Esconder",
+      "--variable", "code_folding_show_btn='\u25BE'",
+      "--variable", "code_folding_hide_btn='\u25B4'"
+    ]

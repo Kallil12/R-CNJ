@@ -1,0 +1,193 @@
+---
+title: >
+  Exemplo de Vinheta de Pacotes R
+#author: >
+#  [Walmes Zeviani](http://www.leg.ufpr.br/doku.php/pessoais:walmes)<br>(walmes@ufpr.br)
+author: |
+  | Walmes M. Zeviani | Wagner H. Bonat  | Eduardo E. Ribeiro Jr |
+  |:-----------------:|:----------------:|:---------------------:|
+  |  walmes@ufpr.br   |  wbonat@ufpr.br  |  eduribjr@gmail.com   |
+date: |
+  `r gsub("^(0?)(\\d)-(\\w)(\\w+)-(\\d{4})",
+          "\\2 de \\U\\3\\L\\4 de \\5",
+          format(Sys.Date(), "%d-%B-%Y"), perl = TRUE)`
+csl: ../COMMON/ABNT_UFPR_2011-Mendeley.csl
+bibliography: ../COMMON/bibliography.bib
+vignette: >
+  %\VignetteIndexEntry{Exemplo de Vinheta de Pacotes R}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+<!-- Esse documento está usando o rmarkdown em
+https://github.com/walmes/rmarkdown -->
+
+# Definições da Sessão
+
+```{r, message = FALSE, results = "hide"}
+#-----------------------------------------------------------------------
+# Carregando pacotes e funções necessárias.
+
+library(wzRfun)
+library(lattice)
+library(latticeExtra)
+library(plyr)
+library(doBy)
+library(multcomp)
+```
+
+# Texto em Parágrafos
+
+```{r, include = FALSE}
+source("../COMMON/setup.R")
+opts_chunk$set(fig.height = 7,
+               fig.width = 7,
+               dev.args = list(family = "Lato"))
+```
+
+  Lorem ipsum dolor sit `amet`, consectetur adipiscing elit. Duis quam
+  urna, ultricies quis arcu eu, hendrerit luctus risus. Nulla sed nunc
+  at ante auctor blandit `sollicitudin` maximus orci. Aliquam quis enim
+  nec mi porttitor auctor eget vitae justo. Nam mollis ligula nec sapien
+  bibendum, at tincidunt purus semper. Integer faucibus suscipit sapien,
+  ac tristique urna viverra et. Morbi nec lacus et risus viverra finibus
+  nec et augue. Nullam nec arcu in mauris fermentum sodales. Sed luctus
+  faucibus velit, sit amet vulputate eros tincidunt id. Aliquam in
+  varius arcu, a porttitor augue. Ut porta sem vel blandit
+  aliquam. Integer eu commodo risus, at faucibus nunc. Curabitur
+  sollicitudin eleifend mi, sit amet condimentum enim pharetra
+  auctor. Ut rhoncus sem ac sem porttitor, id aliquet tellus suscipit.
+
+  Integer vitae mattis libero, quis iaculis nibh. Nullam in malesuada
+  arcu. Suspendisse consequat, lacus id porta vulputate, urna felis
+  condimentum ipsum, id faucibus lacus nunc ac dolor. Duis vestibulum,
+  purus sed vehicula porttitor, dui orci commodo magna, in luctus velit
+  nulla pulvinar mi. Sed sapien ex, porta eget suscipit a, ornare non
+  orci. Aliquam erat volutpat. Praesent fringilla ante eros, ac pretium
+  metus euismod aliquam. Aliquam sed turpis convallis, tincidunt lacus
+  consequat, laoreet massa. Pellentesque dictum neque placerat diam
+  tincidunt molestie. Ut in metus luctus, vestibulum nunc in,
+  consectetur nibh. Phasellus hendrerit, nunc sed vehicula porttitor,
+  magna quam egestas libero, eget pretium sem elit at felis. Donec
+  placerat vitae turpis eget venenatis. Nam malesuada ex sed metus
+  feugiat aliquet a eget metus. Suspendisse blandit malesuada eros, eget
+  vestibulum lorem blandit vitae.
+
+## Texto em Lista Não Ordenada
+
+  * Açougue: texto grando para ver o que acontece quando dá quebra de
+    linha no texto. Mais texto porque aquele não foi suficiente.
+    - Carne: texto grando para ver o que acontece quando dá quebra de
+      linha no texto. Mais texto porque aquele não foi suficiente.
+    - Peixe
+        * Mais uma seção
+        * Mais outra
+    - Frango
+  * Padaria
+    - Pão
+    - Presunto
+    - Queijo
+  * Limpeza
+    - Sabão em pó
+    - Detergente
+
+## Texto em Lista Ordenada {.build}
+
+  * Uma lista simples
+  * Com apenas alguns items
+  * Para ver qual a distância entre eles.
+
+Um texto para separar.
+
+  1. Introdução
+     1. Descrever o estado da obra
+     2. Motivar o problema
+        1. Mais um item
+  2. Materiais e métodos
+     1. Apresentar a metodologia
+     2. Descrever as estapadas da análise
+
+## Citação
+
+> The Linux philosophy is 'Laugh in the face of danger'. Oops. Wrong
+> One. 'Do it yourself'. Yes, that's it.
+>
+> -- Linus Torvalds
+
+> He uses statistics as a drunken man uses lamp posts - for support
+> rather than for illumination.
+>
+> -- Andrew Lang
+
+## Equações
+
+Equações aqui renderizam feio pacas.
+
+$$
+  \int_0^\infty e^{-x^2} dx = \frac{\sqrt{\pi}}{2}
+$$
+
+## Referências
+
+A análise foi feita com o software R de computação científica
+[@Rsoftware].
+
+Os dados foram analisados conforme o modelo estudo por @gammacount.
+
+# Figuras e Tabelas
+
+# Tabela
+
+```{r, echo = FALSE}
+cap <- "Caption da tabela para ver como ela fica no slide."
+cap <- tbn_("descr", cap)
+kable(mtcars[1:10, ], caption = cap)
+```
+
+## Figura
+
+```{r, echo = FALSE, fig.cap = cap}
+cap <- "Histograma do vetor."
+# cap <- "Histograma do vetor de dados `precip` do próprio R."
+cap <- fgn_("precip", cap)
+hist(precip)
+```
+
+## Imagem Externa
+
+```{r, out.width = "400px", fig.cap = cap}
+cap <- "Logo da Universidade Federal do Paraná (UFPR)."
+cap <- fgn_("ufpr", cap)
+knitr::include_graphics("../COMMON/ufpr.jpg")
+```
+
+# Código R
+
+## Input
+
+```
+Teste do alinhamento
+do bloco de código
+```
+
+```{r}
+x <- 0
+for (i in 1:10) {
+    x <- x + 1
+    print(x)
+}
+```
+
+# Referências
+
+<!-- Coloca as referências aqui. -->
+<div id="refs">
+</div>
+
+# Session information
+
+```{r, echo = FALSE, results = "hold"}
+cat(format(Sys.time(), format = "%A, %d de %B de %Y, %H:%M"),
+    "----------------------------------------", sep = "\n")
+sessionInfo()
+```
