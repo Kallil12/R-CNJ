@@ -136,14 +136,75 @@ iris %>%
 
 # case study ----
 
+tidyr::who
+
+who1 <- who %>%
+  pivot_longer(
+    cols = new_sp_m014:newrel_f65,
+    names_to = "key",
+    values_to = "cases",
+    values_drop_na = TRUE
+  )
+
+who1
+
+who1 %>%
+  count(key)
+
+who2 <- who1 %>%
+  mutate(key = stringr::str_replace(key, "newrel","new_rel"))
+
+who2
+
+who3 <- who2 %>%
+  separate(key, c("new","type","sexage"), sep = "_")
+
+who3 %>%
+  count(new)
+
+who3
+
+who4 <- who3 %>%
+  select(-new, -iso2, -iso3)
+
+who5 <- who4 %>%
+  separate(sexage, c("sex","age"), sep = 1)
+
+who5
 
 
+who %>%
+  pivot_longer(
+    cols = new_sp_m014:newrel_f65,
+    names_to = "key",
+    values_to = "cases",
+    values_drop_na = TRUE
+  ) %>%
+  mutate(
+    key = stringr::str_replace(key, "newrel", "new_rel")
+  ) %>%
+  separate(key, c("new", "var", "sexage")) %>%
+  select(-new, -iso2, -iso3) %>%
+  separate(sexage, c("sex", "age"), sep = 1)
 
+# exercises ----
 
+# 1
+# zero is the minimum value, or no values at all. NA is simply
+# the void of information, it could be a high value, a low value
+# or nothing at all.
 
+# 2
+# 3
 
+# 4
 
-
-
-
-
+who %>%
+  pivot_longer(
+    cols = new_sp_m014:newrel_f65,
+    names_to = "key",
+    values_to = "cases",
+    values_drop_na = TRUE
+  ) %>%
+  group_by(country) %>%
+  count(cases)
