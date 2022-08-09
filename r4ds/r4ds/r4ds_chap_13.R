@@ -33,4 +33,94 @@ unique(weather$origin)
 
 # keys ----
 
+planes %>%
+  count(tailnum) %>%
+  filter(n > 1)
+
+weather %>%
+  count(year, month, day, hour, origin) %>%
+  filter(n > 1)
+
+flights %>%
+  count(year, month, day, flight) %>%
+  filter(n > 1)
+
+
+# exercises ----
+
+flights %>%
+  arrange(year, month, day, tailnum, carrier, flight) %>%
+  mutate(flight_id = row_number()) %>%
+  count(flight_id) %>%
+  filter(n > 1)
+
+
+# mutating joins ----
+
+flights2 <- flights %>%
+  select(year:day, hour, origin, dest, tailnum, carrier)
+
+flights2
+
+flights2 %>%
+  select(-origin, -dest) %>%
+  left_join(airlines, by = "carrier")
+
+
+# both flights2 and airlines have a column named "carrier"
+# so the join operation is a little bit different from
+# what is seem on SQL
+
+head(flights2)
+head(airlines)
+
+# understanding joins ----
+
+x <- tribble(
+  ~key, ~val_x,
+  1, "x1",
+  2, "x2",
+  3, "x3"
+)
+
+y <- tribble(
+  ~key, ~val_y,
+  1, "y1",
+  2, "y2",
+  4, "y3"
+)
+
+# inner join ----
+
+x %>%
+  inner_join(y, by = "key")
+
+# outer joins ----
+
+x <- tribble(
+  ~key, ~val_x,
+  1, "x1",
+  2, "x2",
+  2, "x3",
+  1, "x4"
+)
+
+y <- tribble(
+  ~key, ~val_y,
+  1, "y1",
+  2, "y2"
+)
+
+left_join(x,y,by = "key")
+
+# defining the key columns ----
+
+flights2 %>%
+  left_join(weather)
+
+flights2 %>%
+  left_join(airports, c("dest" = "faa"))
+
+# exercises ----
+
 
