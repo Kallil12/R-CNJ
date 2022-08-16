@@ -227,6 +227,64 @@ flights %>%
   geom_point() +
   coord_quickmap()
 
-# filtering joins
+# other implementations ----
+print("Not much")
 
+# filtering joins ----
+
+# semi_join(x,y) keeps all observations in x that have a match in y
+# anti_join(x,y) drops all observations in x that have a match in y
+
+top_dest <- flights %>%
+  count(dest, sort = TRUE) %>%
+  head(10)
+
+top_dest
+
+flights %>%
+  filter(dest %in% top_dest$dest)
+
+flights %>%
+  semi_join(top_dest)
+
+flights %>%
+  anti_join(planes, by = "tailnum") %>%
+  count(tailnum, sort = TRUE)
+
+# exercises ----
+
+# 1
+
+flights %>%
+  filter(is.na(tailnum))
+
+flights %>%
+  anti_join(planes, by = "tailnum") %>%
+  count(carrier, sort = TRUE) %>%
+  mutate(p = n/sum(n))
+# 2 
+
+flights %>%
+  filter(!is.na(dep_time)) %>%
+  count(tailnum) %>%
+  filter(n > 100) %>%
+  arrange(!n)
+  
+# 4
+
+worst_hours <- flights %>%
+  mutate(hour = sched_dep_time %/% 100) %>%
+  group_by(origin, year, month, day, hour) %>%
+  summarise(dep_delay = mean(dep_delay, na.rm = TRUE)) %>%
+  ungroup() %>%
+  arrange(desc(dep_delay)) %>%
+  slice(1:48)
+
+worst_hours
+
+weather_most_delayed <- semi_join(weather, worst_hours,
+                                  by = c("origin", "year", "month", "day", "hour"))
+
+select(weather_most_delayed, temp, wind_speed, precip) %>%
+  print(n = 48)
 
