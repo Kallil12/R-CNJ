@@ -96,4 +96,9 @@ str_pad("a", 10, pad = c("-", "_", " "))
 
 # 6
 
-# matching patterns with regular expressions
+# matching patterns with regular expressions ----
+
+x <- c("apple", "banana", "pear")
+
+str_view(x, "an")
+str_view(x, ".a.")
