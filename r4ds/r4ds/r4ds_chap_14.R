@@ -102,3 +102,18 @@ x <- c("apple", "banana", "pear")
 
 str_view(x, "an")
 str_view(x, ".a.")
+
+# exercises ---- 
+
+# reread the 14.3 section
+
+# 1
+x <- "\\"
+
+str_view(x, "\\")
+
+
+# 2
+
+
+# 3
