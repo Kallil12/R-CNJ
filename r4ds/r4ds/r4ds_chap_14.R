@@ -254,5 +254,49 @@ no_vowels_1 <- !str_detect(words, "[aeiou]")
 no_vowels_2 <- str_detect(words, "^[^aeiou]+$")
 identical(no_vowels_1,no_vowels_2)
 
-?seq_along
+words[str_detect(words,"x$")]
+str_subset(words, "x$")
+
+
+df <- tibble(
+  word = words,
+  i = seq_along(word)
+)
+
+df %>%
+  filter(str_detect(word, "x$"))
+
+x <- c("apple", "banana", "pear")
+str_count(x, "a")
+str_count(x, "b")
+
+mean(str_count(words,"[aeiou]"))
+
+df %>%
+  mutate(
+    vowels = str_count(word, "[aeiou]"),
+    consonants = str_count(word, "[^aeiou]")
+  )
+
+str_count("abababa", "aba")
+str_view_all("abababa", "aba")
+
+# exercises ----
+
+# 1
+
+words[str_detect(words, "x$|^x")]
+x_start <- str_detect(words, "^x")
+x_end <- str_detect(words, "x$")
+x_words <- words[x_start|x_end]
+x_words
+
+words[str_detect(words, "^[aeiou].*[^aeiou]$")]
+vow_start <- str_detect(words, "^[aeiou]")
+cons_end <- str_detect(words, "[^aeiou]$")
+words_result <- words[vow_start & cons_end]
+words_result
+
+# extract matches ----
+
 
