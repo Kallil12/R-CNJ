@@ -298,5 +298,113 @@ words_result <- words[vow_start & cons_end]
 words_result
 
 # extract matches ----
+# library(tidyverse)
+
+length(sentences)
+head(sentences)
+
+colors <- c("red", "orange", "yellow", "green", "blue", "purple")
+color_match <- str_c(colors, collapse = "|")
+color_match_upgrade <- str_c("\\b(", color_match, ")\\b")
+color_match_upgrade
+
+has_color <- str_subset(sentences, color_match_upgrade)
+matches <- str_extract(has_color, color_match_upgrade)
+head(matches)
+
+more <- sentences[str_count(sentences, color_match_upgrade) > 1]
+str_view_all(more, color_match_upgrade)
+
+str_extract_all(more, color_match, simplify = TRUE)
+x <- c("a", "a b", "a b c")
+str_extract_all(x, "[a-z]", simplify = TRUE)
+
+# exercises ----
+
+# 1
+
+# 2
+
+str_extract(sentences, "[A-Za-z']+") %>%
+  head()
+
+pattern <- "\\b[A-Za-z]+ing\\b"
+sentences_with_ing <- str_detect(sentences, pattern)
+unique(unlist(str_extract_all(sentences[sentences_with_ing], pattern))) %>%
+  head()
+
+# 3
+
+unique(unlist(str_extract_all(sentences, "\\b[A-Za-z]{3,}s\\b"))) %>%
+  head()
+
+# grouped matches ----
+
+noun <- "(a|the) ([^ ]+)"
+has_noun <- sentences %>%
+  str_subset(noun) %>%
+  head(10)
+
+has_noun %>%
+  str_extract(noun)
+
+has_noun %>%
+  str_match(noun)
+
+tibble(sentence = sentences) %>%
+  tidyr::extract(
+    sentence, c("article", "noun"), "(a|the) ([^ ]+)",
+    remove = FALSE
+  )
+
+# exercises ----
+
+# 1
+
+numword <- "\\b(one|two|three|four|five|six|seven|eight|nine|ten) +(\\w+)"
+sentences[str_detect(sentences, numword)] %>%
+  str_extract(numword)
+
+# 2
+
+contraction <- "([A-Za-z]+)'([A-Za-z]+)"
+sentences[str_detect(sentences, contraction)] %>%
+  str_extract(contraction) %>%
+  str_split("'")
+
+# replacing matches ----
+
+x <- c("apple", "pear", "banana")
+str_replace(x, "[aeiou]", "-")
+str_replace_all(x,"[aeiou]", "-")
+
+x <- c("1 house", "2 cars", "3 people")
+str_replace_all(x, c("1" = "one", "2" = "two", "3" = "three"))
+
+# exercises ----
+# 1
+
+# 2
+exec <- c("PEY POW", "PEY", "POW", "ABC C AND D", "PB & J")
+str_replace_all(exec,c("A" = "a", "B" = "b", "C" = "c", 
+                       "P" = "p", "E" = "e", "Y" = "y",
+                       "O" = "o", "W" = "w"))
+
+# 3
+
+# splitting ----
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
